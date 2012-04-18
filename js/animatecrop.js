@@ -76,9 +76,9 @@
 
 	var limit = 30;
 	var test = function(){
-		if(! limit-- ){ return; }
+		//if(! limit-- ){ return; }
 		a.nextFrame();
-		setTimeout(test, 100);
+		setTimeout(test, 50);
 	};
 
 	test();
