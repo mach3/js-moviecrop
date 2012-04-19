@@ -31,12 +31,12 @@ You can just play the animation as below.
 
 Pass the option as the first argument.
 
-	$(element).moviePlay({
-		fps : 20,
-		frames : 20,
-		repeat : true,
-		direction : "vertical"
-	});
+>     $(element).moviePlay({
+>         fps : 20,
+>         frames : 20,
+>         repeat : true,
+>         direction : "vertical"
+>     });
 
 - fps (Integer) : Frame per second
 - frames (Integer) : Total frames
@@ -47,39 +47,39 @@ Pass the option as the first argument.
 
 You can control the animation with methods.
 
-	var ele = $(element);
-	ele.moviePlay(); // Play
-	ele.moviePlayBack(); // Playback
-	ele.movieStop(); // Stop
-	ele.movieRewind(); // Back to the first frame
+>     var ele = $(element);
+>     ele.moviePlay(); // Play
+>     ele.moviePlayBack(); // Playback
+>     ele.movieStop(); // Stop
+>     ele.movieRewind(); // Back to the first frame
 
 ### With the callback
 
 Pass the callback function as the second argument of moviePlay() or moviePlayBack().  
 It will be called when the animation end (If the "repeat" is false).
 
-	var ele = $(element);
-	ele.moviePlay({}, function(){ // the first argument is option...
-		alert("Complete !")
-	});
+>     var ele = $(element);
+>     ele.moviePlay({}, function(){ // the first argument is option...
+>         alert("Complete !")
+>     });
 
 ### Initialize with option
 
 If you want to use the same option when calling play or playback,  
 initialize with movieInit() method.
 
-	var ele = $(element);
-	ele.movieInit({frames:30, repeat:false});
-	ele.moviePlay();
-	ele.moviePlayBack();
+>     var ele = $(element);
+>     ele.movieInit({frames:30, repeat:false});
+>     ele.moviePlay();
+>     ele.moviePlayBack();
 
 ### Use with instance of MovieCrop class
 
 You can create an instance of MovieCrop class,  
 and control the animation by calling its methods.
 
-	var mc = new MovieCrop(element, {fps:20, repeat:true});
-	mc.play();
+>     var mc = new MovieCrop(element, {fps:20, repeat:true});
+>     mc.play();
 
 #### Methods
 
