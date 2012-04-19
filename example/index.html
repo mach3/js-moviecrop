@@ -1,11 +1,21 @@
 <!DOCTYPE HTML>
-<html lang="en-US">
+<html lang="ja">
 <head>
 	<meta charset="UTF-8">
-	<title></title>
+	<title>MovieCrop Example</title>
 	<style type="text/css">
+	code {
+		white-space:pre;
+	}
 	.item {
 		margin:30px;
+	}
+	.row {
+		overflow:hidden;
+	}
+	.col {
+		float:left;
+		margin-right:20px;
 	}
 	.loading {
 		width:32px;
@@ -23,26 +33,116 @@
 		background:url(./images/circle.png) 0 0 no-repeat;
 	}
 	</style>
+	<script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
+	<script type="text/javascript" src="../js/moviecrop.js"></script>
 </head>
 <body>
 
 
-	<div class="item loading"></div>
-	<div class="item">
-		<input type="button" id="button-stop-loading" value="stop" />
+	<div id="container">
+		<h1>MovieCrop Example</h1>
+		<div class="intro">
+			<p>
+				ブロック要素の背景位置でアニメーションをさせる、ローテクなライブラリです。
+			</p>
+		</div>
+		<div class="items">
+			<div class="item">
+				<h2>Just Play</h2>
+				<div id="demo-loading" class="loading"></div>
+				<code data-src="loading"></code>
+				<script type="text/javascript" data-id="loading">
+					$("#demo-loading").moviePlay({frames:12, fps:12});
+				</script>
+			</div>
+			<div class="item">
+				<h2>Control to Play / Playback / Stop / Rewind</h2>
+				<div id="demo-control" class="graph"></div>
+				<p>
+					<input type="button" id="button-play-graph" value="PLAY" />
+					<input type="button" id="button-playback-graph" value="PLAYBACK" />
+					<input type="button" id="button-stop-graph" value="STOP" />
+					<input type="button" id="button-rewind-graph" value="REWIND" />
+				</p>
+				<code></code>
+				<script type="text/javascript">
+					(function(){
+						var g = $("#demo-control").movieInit({frames:11});
+						$("#button-play-graph").on("click", function(){ g.moviePlay(); });
+						$("#button-playback-graph").on("click", function(){ g.moviePlayBack(); });
+						$("#button-stop-graph").on("click", function(){ g.movieStop(); });
+						$("#button-rewind-graph").on("click", function(){ g.movieRewind(); });
+					}());
+				</script>
+			</div>
+			<div class="item">
+				<h2>Hover Demo</h2>
+				<div id="demo-hover" class="circle"></div>
+				<code></code>
+				<script type="text/javascript">
+					(function(){
+						var c = $("#demo-hover").movieInit({frames:12, repeat:false});
+						c.hover(
+							function(){
+								$(this).moviePlay();
+							},
+							function(){
+								$(this).moviePlayBack();
+							}
+						);
+					}());
+				</script>
+			</div>
+
+			<div class="item">
+				<h2>Callback Demo</h2>
+				<div class="row">
+					<div class="circle col demo-callback" id="demo-callback-1"></div>
+					<div class="circle col demo-callback" id="demo-callback-2"></div>
+					<div class="circle col demo-callback" id="demo-callback-3"></div>
+				</div>
+				<p>
+					<input type="button" value="START" id="button-demo-callback">
+				</p>
+				<code></code>
+				<script type="text/javascript">
+					(function(){
+						var n, run;
+						n = 1;
+						end = 3;
+						run = function(){
+							var o = $("#demo-callback-" + n);
+							if(o.length){
+								o.moviePlay({}, function(){
+									run();
+								});
+							}
+							n += 1;
+						};
+						$(".demo-callback").movieInit({frames:12, repeat:false});
+						$("#button-demo-callback").on("click", function(){
+							run();
+						});
+					}());
+				</script>
+			</div>
+		</div>
 	</div>
 
-	<div class="item graph play"></div>
-	<div class="item graph playback"></div>
-
-	<div class="item circle"></div>
 
 
 
-
-
-<script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
-<script type="text/javascript" src="../js/animatecrop.js"></script>
+<script type="text/javascript">
+(function(){
+	$("code").each(function(){
+		var c, text, len;
+		c = $(this);
+		text = c.next().text();
+		len = text.match(/\n(\t+)/)[1].length;
+		c.text(text.replace(new RegExp("[\t]{" + len + "}", "g"), ""));
+	});
+}());
+</script>
 	
 </body>
 </html>
