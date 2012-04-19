@@ -4,19 +4,20 @@
 		this.init(ele, config);
 	};
 	$.extend(AnimateCrop.prototype, {
-		ele : null,
 		option : {
 			fps : 30,
 			frames : 30,
 			repeat : true,
 			direction : "vertical"
 		},
+		ele : null,
 		ms : 0,
 		frame : 1,
+		timer : null,
 		init : function(ele, config){
 			this.option = $.extend({}, this.option, config);
 			this.ele = $(ele);
-			this.ms = Math.floor(1000 / 30);
+			this.ms = Math.floor(1000 / this.option.fps);
 			this.setFrame(1);
 		},
 		setPos : function(x, y){
@@ -36,54 +37,109 @@
 				y : parseInt(m[2])
 			};
 		},
-		setFrame : function(index){
-			var x, y;
+		setFrame : function(frame){
+			var index, x, y;
+			this.frame = frame;
+			index = this.frame - 1;
 			x = 0;
 			y = 0;
-			this.frame = index;
 			if(this.frame !== 1){
 				if(this.option.direction === "vertical" ){
-					y = -(this.frame * this.ele.height());
+					y = -(index * this.ele.height());
 				} else {
-					x = -(this.frame * this.ele.width());
+					x = -(index * this.ele.width());
 				}
 			}
 			this.setPos(x, y);
 			return this;
-
 		},
 		nextFrame : function(){
-			if(this.frame + 1 < this.option.frames){
+			if(this.frame + 1 <= this.option.frames){
 				this.setFrame(this.frame + 1);
 			} else if(this.option.repeat){
 				this.setFrame(1);
+			} else {
+				return false;
 			}
 			return this;
 		},
 		prevFrame : function(){
-			
+			if(this.frame - 1){
+				this.setFrame(this.frame - 1);
+			} else if(this.option.repeat){
+				this.setFrame(this.option.frames);
+			} else {
+				return false;
+			}
+			return this;
+		},
+		play : function(){
+			var self, run;
+			self = this;
+			run = function(){
+				if(self.nextFrame()){
+					self.timer = setTimeout(
+						function(){ run.call(self); },
+						self.ms
+					);
+				}
+			};
+			run.call(this);
+		},
+		playback : function(){
 
+		},
+		stop : function(){
+			clearTimeout(this.timer);
 		}
-
 	});
 
-
-
-	var c = {
-		frames : 12
+	
+	/**
+	 * loading
+	 */
+	 new function(){
+		var a, option;
+		option = {
+			frames : 12
+		};
+		a = new AnimateCrop($(".loading"), option);
+		a.play();
+		setTimeout(function(){
+			console.log("stop");
+			a.stop();
+		}, 3000);
 	};
-	var a = new AnimateCrop($(".loading"), c);
 
-	var limit = 30;
-	var test = function(){
-		//if(! limit-- ){ return; }
-		a.nextFrame();
-		setTimeout(test, 50);
+	/**
+	 * graph play
+	 */
+	new function(){
+		var a, option;
+		option = {
+			frames : 11,
+			fps : 20 
+		};
+		a = new AnimateCrop($(".graph.play"), option);
+		a.play();
 	};
 
-	test();
+	/**
+	 * graph playback
+	 */
+	new function(){
+		var a, option;
+		option = {
+			frames : 11,
+			fps : 20
+		};
+		a = new AnimateCrop($(".graph.playback"), option);
+		setTimeout(function(){
+			a.prevFrame();
 
+		}, 1000);
 
+	};
 
 
 
