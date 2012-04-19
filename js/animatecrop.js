@@ -1,9 +1,10 @@
 (function($, undefined){
 
-	var AnimateCrop = function(ele, config){
+	var MovieCrop = function(ele, config){
 		this.init(ele, config);
 	};
-	$.extend(AnimateCrop.prototype, {
+	$.extend(MovieCrop.prototype, {
+		type : "MovieCrop",
 		option : {
 			fps : 30,
 			frames : 30,
@@ -73,11 +74,15 @@
 			}
 			return this;
 		},
-		play : function(){
-			var self, run;
+		run : function(back, callback){
+
+		},
+		play : function(back){
+			var self, run, method;
 			self = this;
+			method = back ? "prevFrame" : "nextFrame";
 			run = function(){
-				if(self.nextFrame()){
+				if(self[method]()){
 					self.timer = setTimeout(
 						function(){ run.call(self); },
 						self.ms
@@ -85,14 +90,90 @@
 				}
 			};
 			run.call(this);
+			return this;
 		},
 		playback : function(){
-
+			this.play(true);
+			return this;
 		},
 		stop : function(){
 			clearTimeout(this.timer);
+			return this;
 		}
 	});
+
+	$.extend($,	{
+		initMovieCrop : function(ele, config){
+			var o, key;
+			o = $(ele);
+			key = "movie-crop";
+			if(! o.data(key)){
+				o.data(key, new MovieCrop(ele, config));
+			}
+			return o.data(key);
+		}
+	});
+
+	$.fn.extend({
+		movieInit : function(config){
+			this.each(function(){
+				$.initMovieCrop(this, config);
+			});
+			return this;
+		},
+		moviePlay : function(config){
+			this.each(function(){
+				$.initMovieCrop(this, config).play();
+			});
+			return this;
+		},
+		moviePlayback : function(config){
+			this.each(function(){
+				$.initMovieCrop(this, config).playback();
+			});
+			return this;
+		},
+		movieStop : function(){
+			this.each(function(){
+				$.initMovieCrop(this, {}).stop();
+			});
+			return this;
+		}
+	});
+
+	$(".loading").moviePlay({
+		frames : 12
+	});
+
+	$("#button-stop-loading").on("click", function(){
+		$(".loading").movieStop();
+	});
+
+
+	$(".graph.play").moviePlay({
+		frames : 11
+	});
+
+	$(".graph.playback").moviePlayback({
+		frames : 11
+	});
+
+	new function(){
+		var o = $(".circle").movieInit({frames:12});
+
+		o.moviePlay();
+
+	};
+
+
+
+
+
+
+
+
+
+	return;
 
 	
 	/**
@@ -106,6 +187,7 @@
 		a = new AnimateCrop($(".loading"), option);
 		a.play();
 		setTimeout(function(){
+			return;
 			console.log("stop");
 			a.stop();
 		}, 3000);
@@ -134,12 +216,13 @@
 			fps : 20
 		};
 		a = new AnimateCrop($(".graph.playback"), option);
+		a.playback();
 		setTimeout(function(){
-			a.prevFrame();
-
-		}, 1000);
-
+			return;
+			a.stop();
+		}, 3000);
 	};
+
 
 
 
