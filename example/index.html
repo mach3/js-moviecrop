@@ -4,79 +4,89 @@
 	<meta charset="UTF-8">
 	<title>MovieCrop Example</title>
 	<style type="text/css">
-	body {
-		margin:0;
-		padding:0;
-		font-size:81.2%;
-		background-color:#eee;
-	}
-	#container {
-		width:960px;
-		margin:0 auto;
-		padding-bottom:50px;
-		background-color:#fff;
-	}
-	h1 {
-		background-color:#345;
-		color:#fff;
-		margin:0 1px;
-		padding:1em;
-	}
-	h2 {
-		border-left:20px solid #456;
-		padding-left:1em;
-		margin-left:-20px;
-		color:#456;
-	}
-	code {
-		display:block;
-		white-space:pre;
-		padding:1em;
-		background-color:#ddd;
-	}
-	.item {
-		margin:30px 20px;
-	}
-	.row {
-		overflow:hidden;
-	}
-	.col {
-		float:left;
-		margin-right:20px;
-	}
-	.loading {
-		width:32px;
-		height:32px;
-		background:url(./images/loading.png) 0 0 no-repeat;
-	}
-	.graph {
-		width:32px;
-		height:32px;
-		background:url(./images/graph.png) 0 0 no-repeat;
-	}
-	.circle {
-		width:32px;
-		height:32px;
-		background:url(./images/circle.png) 0 0 no-repeat;
-	}
+		body {
+			margin:0;
+			padding:0;
+			font-size:81.2%;
+			background-color:#eee;
+		}
+		#container {
+			width:960px;
+			margin:0 auto;
+			padding-bottom:50px;
+			background-color:#fff;
+		}
+		h1 {
+			background-color:#345;
+			color:#fff;
+			margin:0 1px;
+			padding:1em;
+		}
+		h2 {
+			border-left:20px solid #456;
+			padding-left:1em;
+			margin-left:-20px;
+			color:#456;
+		}
+		code {
+			display:block;
+			white-space:pre;
+			padding:1em;
+			margin:20px 0;
+			border-radius:5px;
+			background-color:#ddd;
+			font-size:1.2em;
+			box-shadow:inset 0px 0px 5px #789;
+		}
+		.item {
+			margin:40px 20px;
+		}
+		.demo {
+			margin:30px 0;
+		}
+		.row {
+			overflow:hidden;
+		}
+		.col {
+			float:left;
+			margin-right:20px;
+		}
+		.loading {
+			width:32px;
+			height:32px;
+			background:url(./images/loading.png) 0 0 no-repeat;
+		}
+		.graph {
+			width:32px;
+			height:32px;
+			background:url(./images/graph.png) 0 0 no-repeat;
+		}
+		.circle {
+			width:32px;
+			height:32px;
+			background:url(./images/circle.png) 0 0 no-repeat;
+		}
 	</style>
 	<script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
 	<script type="text/javascript" src="../js/moviecrop.js"></script>
 </head>
 <body>
 
-
 	<div id="container">
 		<h1>MovieCrop Example</h1>
-		<div class="item">
-			<p>
-				ブロック要素の背景位置でアニメーションをさせる、ローテクなライブラリです。
-			</p>
-		</div>
 		<div class="items">
 			<div class="item">
+				<p>
+					ブロック要素の背景位置でアニメーションをさせるライブラリです。<br />
+					ActionScriptのMovieClipライクにコントロールが出来ます。
+				</p>
+			</div>
+			<div class="item">
 				<h2>Just Play</h2>
-				<div id="demo-loading" class="loading"></div>
+				<div class="demo">
+					<div id="demo-loading" class="loading"></div>
+				</div>
+				<p>シンプルに再生するだけの例。</p>
 				<code data-src="loading"></code>
 				<script type="text/javascript" data-id="loading">
 					$("#demo-loading").moviePlay({frames:12, fps:12});
@@ -84,13 +94,16 @@
 			</div>
 			<div class="item">
 				<h2>Control to Play / Playback / Stop / Rewind</h2>
-				<div id="demo-control" class="graph"></div>
-				<p>
-					<input type="button" id="button-play-graph" value="PLAY" />
-					<input type="button" id="button-playback-graph" value="PLAYBACK" />
-					<input type="button" id="button-stop-graph" value="STOP" />
-					<input type="button" id="button-rewind-graph" value="REWIND" />
-				</p>
+				<div class="demo">
+					<div id="demo-control" class="graph"></div>
+					<p>
+						<input type="button" id="button-play-graph" value="PLAY" />
+						<input type="button" id="button-playback-graph" value="PLAYBACK" />
+						<input type="button" id="button-stop-graph" value="STOP" />
+						<input type="button" id="button-rewind-graph" value="REWIND" />
+					</p>
+				</div>
+				<p>再生・逆再生・ストップ・巻き戻しのコントロールをする。</p>
 				<code></code>
 				<script type="text/javascript">
 					(function(){
@@ -104,7 +117,10 @@
 			</div>
 			<div class="item">
 				<h2>Hover Demo</h2>
-				<div id="demo-hover" class="circle"></div>
+				<div class="demo">
+					<div id="demo-hover" class="circle"></div>
+				</div>
+				<p>再生・逆再生を使ってアニメーションするボタンを作ってみる例。</p>
 				<code></code>
 				<script type="text/javascript">
 					(function(){
@@ -123,14 +139,17 @@
 
 			<div class="item">
 				<h2>Callback Demo</h2>
-				<div class="row">
-					<div class="circle col demo-callback" id="demo-callback-1"></div>
-					<div class="circle col demo-callback" id="demo-callback-2"></div>
-					<div class="circle col demo-callback" id="demo-callback-3"></div>
+				<div class="demo">
+					<div class="row">
+						<div class="circle col demo-callback" id="demo-callback-1"></div>
+						<div class="circle col demo-callback" id="demo-callback-2"></div>
+						<div class="circle col demo-callback" id="demo-callback-3"></div>
+					</div>
+					<p>
+						<input type="button" value="START" id="button-demo-callback">
+					</p>
 				</div>
-				<p>
-					<input type="button" value="START" id="button-demo-callback">
-				</p>
+				<p>アニメーション完了時のコールバックを利用して、1つずつ順々にアニメーションをさせる例。</p>
 				<code></code>
 				<script type="text/javascript">
 					(function(){
@@ -156,22 +175,20 @@
 		</div>
 	</div>
 
-
-
-
-<script type="text/javascript">
-(function(){
-	$("code").each(function(){
-		var c, text, len;
-		c = $(this);
-		text = c.next().text();
-		len = text.match(/\n(\t+)/)[1].length;
-		text = text.replace(new RegExp("[\t]{" + len + "}", "g"), "")
-			.replace(/\t+?$/, "");
-		c.text(text);
-	});
-}());
-</script>
+	<script type="text/javascript">
+	(function(){
+		$("code").each(function(){
+			var c, text, len;
+			c = $(this);
+			text = c.next().text();
+			len = text.match(/\n(\t+)/)[1].length;
+			text = text.replace(new RegExp("[\t]{" + len + "}", "g"), "")
+				.replace(/\t+?$/, "")
+				.replace(/^\n/, "");
+			c.text(text);
+		});
+	}());
+	</script>
 	
 </body>
 </html>
