@@ -4,11 +4,38 @@
 	<meta charset="UTF-8">
 	<title>MovieCrop Example</title>
 	<style type="text/css">
+	body {
+		margin:0;
+		padding:0;
+		font-size:81.2%;
+		background-color:#eee;
+	}
+	#container {
+		width:960px;
+		margin:0 auto;
+		padding-bottom:50px;
+		background-color:#fff;
+	}
+	h1 {
+		background-color:#345;
+		color:#fff;
+		margin:0 1px;
+		padding:1em;
+	}
+	h2 {
+		border-left:20px solid #456;
+		padding-left:1em;
+		margin-left:-20px;
+		color:#456;
+	}
 	code {
+		display:block;
 		white-space:pre;
+		padding:1em;
+		background-color:#ddd;
 	}
 	.item {
-		margin:30px;
+		margin:30px 20px;
 	}
 	.row {
 		overflow:hidden;
@@ -41,7 +68,7 @@
 
 	<div id="container">
 		<h1>MovieCrop Example</h1>
-		<div class="intro">
+		<div class="item">
 			<p>
 				ブロック要素の背景位置でアニメーションをさせる、ローテクなライブラリです。
 			</p>
@@ -139,7 +166,9 @@
 		c = $(this);
 		text = c.next().text();
 		len = text.match(/\n(\t+)/)[1].length;
-		c.text(text.replace(new RegExp("[\t]{" + len + "}", "g"), ""));
+		text = text.replace(new RegExp("[\t]{" + len + "}", "g"), "")
+			.replace(/\t+?$/, "");
+		c.text(text);
 	});
 }());
 </script>
