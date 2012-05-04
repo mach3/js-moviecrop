@@ -8,7 +8,7 @@ JavaScript Library to animate background of block elements.
 ## Feature
 
 - Animation background using CSS sprite
-- Control the animation to play, playback, stop and rewind
+- Control the animation to play, reverse, stop and rewind
 - Animation is repeatable
 
 
@@ -49,13 +49,13 @@ You can control the animation with methods.
 
 >     var ele = $(element);
 >     ele.moviePlay(); // Play
->     ele.moviePlayBack(); // Playback
+>     ele.movieReverse(); // Reverse
 >     ele.movieStop(); // Stop
 >     ele.movieRewind(); // Back to the first frame
 
 ### With the callback
 
-Pass the callback function as the second argument of moviePlay() or moviePlayBack().  
+Pass the callback function as the second argument of moviePlay() or movieReverse().  
 It will be called when the animation end (If the "repeat" is false).
 
 >     var ele = $(element);
@@ -65,13 +65,13 @@ It will be called when the animation end (If the "repeat" is false).
 
 ### Initialize with option
 
-If you want to use the same option when calling play or playback,  
+If you want to use the same option when calling play or reverse,  
 initialize with movieInit() method.
 
 >     var ele = $(element);
 >     ele.movieInit({frames:30, repeat:false});
 >     ele.moviePlay();
->     ele.moviePlayBack();
+>     ele.movieReverse();
 
 ### Use with instance of MovieCrop class
 
@@ -84,7 +84,7 @@ and control the animation by calling its methods.
 #### Methods
 
 - play(callback) : Play the animation
-- playback(callback) : Playback the animation
+- reverse(callback) : Reverse the animation
 - rewind() : Back to the first frame
 - nextFrame() : Go to the next frame
 - prevFrame() : Go to the previous frame
@@ -94,6 +94,7 @@ and control the animation by calling its methods.
 
 ## Versions
 
+- 0.9.1 : rename "playback" to "reverse"
 - 0.9 : release
 
 

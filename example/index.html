@@ -93,12 +93,12 @@
 				</script>
 			</div>
 			<div class="item">
-				<h2>Control to Play / Playback / Stop / Rewind</h2>
+				<h2>Play / Reverse / Stop / Rewind</h2>
 				<div class="demo">
 					<div id="demo-control" class="graph"></div>
 					<p>
 						<input type="button" id="button-play-graph" value="PLAY" />
-						<input type="button" id="button-playback-graph" value="PLAYBACK" />
+						<input type="button" id="button-reverse-graph" value="REVERSE" />
 						<input type="button" id="button-stop-graph" value="STOP" />
 						<input type="button" id="button-rewind-graph" value="REWIND" />
 					</p>
@@ -109,7 +109,7 @@
 					(function(){
 						var g = $("#demo-control").movieInit({frames:11});
 						$("#button-play-graph").on("click", function(){ g.moviePlay(); });
-						$("#button-playback-graph").on("click", function(){ g.moviePlayBack(); });
+						$("#button-reverse-graph").on("click", function(){ g.movieReverse(); });
 						$("#button-stop-graph").on("click", function(){ g.movieStop(); });
 						$("#button-rewind-graph").on("click", function(){ g.movieRewind(); });
 					}());
@@ -130,7 +130,7 @@
 								$(this).moviePlay();
 							},
 							function(){
-								$(this).moviePlayBack();
+								$(this).movieReverse();
 							}
 						);
 					}());
